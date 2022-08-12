@@ -9,7 +9,7 @@ from faker import Faker
 faker_factory = Faker('pt_BR')
 
 
-def make_fake_processos(qtde):
+def criar_processos(qtde):
     return [{
         'cliente_id': 61,
         'usuario_id': 277,
@@ -21,7 +21,7 @@ def make_fake_processos(qtde):
     }for _ in range(qtde)]
 
 
-def make_worker_name(n):
+def criar_nome_worker(n):
     return choice([
         f'{n+1} - Ada Lovelace',
         f'{n+1} - Brian Kernighan',
@@ -51,17 +51,13 @@ def retry(times: int = 3, exceptions: tuple = (Exception,), raise_error: bool = 
         def inner(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
-
             except tuple(exceptions) as e:
                 nonlocal count
-
                 if count < times:
                     count += 1
                     print('Erro ao executar função. Tentando novamente...') and sleep(10)
                     return inner(*args, **kwargs)
-
                 if raise_error:
                     raise e
-
         return inner
     return decorator
